@@ -30,6 +30,14 @@ class DieFragment : Fragment() {
         }
     }
 
+    fun setDieSides(dieSides: Int = 6): DieFragment{
+        return DieFragment().apply {
+            arguments = Bundle().apply {
+                putInt(DIESIDE, dieSides)
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
