@@ -3,9 +3,13 @@ package edu.temple.dicethrow
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlin.random.Random
 
 class DiceViewModel : ViewModel() {
-    val currentRoll : MutableLiveData<Int> by lazy{
+
+    private var dieSides: Int = 6
+
+    private val currentRoll : MutableLiveData<Int> by lazy{
         MutableLiveData()
     }
 
@@ -15,5 +19,9 @@ class DiceViewModel : ViewModel() {
 
     fun getCurrentRoll() : LiveData<Int> {
         return currentRoll
+    }
+
+    fun rollDie(){
+        setCurrentRoll(Random.nextInt(dieSides) + 1)
     }
 }

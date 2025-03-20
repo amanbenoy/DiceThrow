@@ -13,7 +13,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val diceViewModel = ViewModelProvider(this)[DiceViewModel::class.java]
+        val diceViewModel : DiceViewModel by lazy{
+            ViewModelProvider(this)[DiceViewModel::class.java]
+        }
 
 
         supportFragmentManager.beginTransaction()
@@ -22,8 +24,7 @@ class MainActivity : AppCompatActivity() {
             .commit()
 
         findViewById<Button>(R.id.rollDiceButton).setOnClickListener {
-            (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as DieFragment).throwDie()
-            (supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as DieFragment).throwDie()
+           diceViewModel.rollDie()
         }
     }
 }

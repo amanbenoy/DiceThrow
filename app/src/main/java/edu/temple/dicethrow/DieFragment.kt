@@ -59,10 +59,6 @@ class DieFragment : Fragment() {
         }
 
         if (diceViewModel.getCurrentRoll().value == null)
-            throwDie()
+            diceViewModel.rollDie()
     }
-
-        fun throwDie() {
-            diceViewModel.setCurrentRoll(Random.nextInt(dieSides) + 1)
-        }
     }
