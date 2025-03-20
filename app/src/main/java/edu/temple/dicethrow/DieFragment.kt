@@ -7,12 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
-import kotlin.random.Random
 
 class DieFragment : Fragment() {
 
     val DIESIDE = "sidenumber"
-    val CURRENTROLL = "currentroll"
 
 
     lateinit var dieTextView: TextView
