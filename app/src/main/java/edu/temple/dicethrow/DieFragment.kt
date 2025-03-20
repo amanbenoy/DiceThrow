@@ -14,14 +14,12 @@ class DieFragment : Fragment() {
     val DIESIDE = "sidenumber"
     val CURRENTROLL = "currentroll"
 
-    var currentRoll = 0
 
     lateinit var dieTextView: TextView
 
     lateinit var diceViewModel: DiceViewModel
 
     var dieSides: Int = 6
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +33,7 @@ class DieFragment : Fragment() {
         diceViewModel = ViewModelProvider(requireActivity())[DiceViewModel::class.java]
     }
 
-    fun setDieSides(dieSides: Int = 6): DieFragment{
+    fun setDieSides(dieSides: Int = 6): DieFragment {
         return DieFragment().apply {
             arguments = Bundle().apply {
                 putInt(DIESIDE, dieSides)
@@ -55,26 +53,16 @@ class DieFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (savedInstanceState == null) {
+
+        diceViewModel.getCurrentRoll().observe(viewLifecycleOwner) {
+            dieTextView.text = it.toString()
+        }
+
+        if (diceViewModel.getCurrentRoll().value == null)
             throwDie()
-        }
-        else{
-            currentRoll = savedInstanceState.getInt(CURRENTROLL)
-            dieTextView.text = currentRoll.toString()
-        }
-        view.setOnClickListener{
-            throwDie()
-        }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        outState.putInt(CURRENTROLL, currentRoll)
+        fun throwDie() {
+            diceViewModel.setCurrentRoll(Random.nextInt(dieSides) + 1)
+        }
     }
-
-    fun throwDie() {
-        currentRoll = Random.nextInt(dieSides) + 1
-        dieTextView.text = currentRoll.toString()
-    }
-}
