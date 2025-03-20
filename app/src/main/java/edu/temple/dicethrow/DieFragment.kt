@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import kotlin.random.Random
 
 class DieFragment : Fragment() {
@@ -16,6 +17,8 @@ class DieFragment : Fragment() {
     var currentRoll = 0
 
     lateinit var dieTextView: TextView
+
+    lateinit var diceViewModel: DiceViewModel
 
     var dieSides: Int = 6
 
@@ -28,6 +31,8 @@ class DieFragment : Fragment() {
                 dieSides = this
             }
         }
+
+        diceViewModel = ViewModelProvider(requireActivity())[DiceViewModel::class.java]
     }
 
     fun setDieSides(dieSides: Int = 6): DieFragment{
